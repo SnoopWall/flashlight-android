@@ -14,8 +14,10 @@ Copyright 2014 SnoopWall LLC
         See the License for the specific language governing permissions and
         limitations under the License.
 */
+
 package com.snoopwall.flashlight;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -27,7 +29,6 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class LightApp extends Application {
     public static final int MAYBE_DONE = 1;
     public static final int VIEW_UPDATE = 2;
@@ -36,6 +37,7 @@ public class LightApp extends Application {
     private Camera cam = null;
     public Boolean backLightOn = false;
     public Boolean camOn = false;
+
     public final Handler mHandler = new Handler() {
 
         public void handleMessage(Message msg) {
@@ -50,6 +52,7 @@ public class LightApp extends Application {
         }
 
     };
+
     public void setView(Light x){
         if(finisher != null){
             finisher.cancel();
@@ -58,10 +61,11 @@ public class LightApp extends Application {
         }
         act = x;
     }
-    public void onCreate() {
 
+    public void onCreate() {
         super.onCreate();
     }
+
     private void iAmDone(){
         if(finisher != null){
             finisher.cancel();
@@ -75,6 +79,7 @@ public class LightApp extends Application {
             act = null;
         }
     }
+
     public void maybeDone(){
         if(finisher != null){
             finisher.cancel();
@@ -90,19 +95,20 @@ public class LightApp extends Application {
         finisher = new Timer();
         finisher.schedule(x,2000);
     }
+
+    @SuppressLint("NewApi")
     public void turnOnCam(){
         if(camOn) {
             turnOffCam();
         }
         camOn = true;
         try {
-
             cam = Camera.open();
             // Nexus
             if (Build.VERSION.SDK_INT >= 11) {
                 cam.setPreviewTexture(new SurfaceTexture(0));
             }
-            //
+            // Default
             Camera.Parameters params = cam.getParameters();
 
             params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
@@ -115,6 +121,7 @@ public class LightApp extends Application {
             Log.w("info", "Cam Error " + e.toString());
         }
     }
+
     public void turnOffCam(){
         try{
             cam.stopPreview();
@@ -124,5 +131,10 @@ public class LightApp extends Application {
         }
         camOn = false;
         cam = null;
+    }
+
+    public boolean getLEDState(){
+        if(camOn) {return true;}
+        else      {return false;}
     }
 }

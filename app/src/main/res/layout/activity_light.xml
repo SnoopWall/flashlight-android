@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     The Likeness, Logos and text of this app are provided as reference and may not be reproduced in a derivative work
     Copyright 2014 SnoopWall LLC
@@ -27,8 +28,6 @@
     android:id="@+id/ROOT_LAYOUT"
     >
 
-
-
     <TextView
         android:layout_width="500dp"
         android:layout_height="50dp"
@@ -52,7 +51,7 @@
         android:textSize="80dp"
         android:gravity="center_horizontal|top"
         android:layout_toStartOf="@+id/imageView"
-        android:layout_below="@+id/textView2"
+        android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/imageView" />
     <TextView
         android:layout_width="100dp"
@@ -63,9 +62,9 @@
         android:textColor="#ff000000"
         android:textSize="80dp"
         android:gravity="center_horizontal|top"
-        android:layout_below="@+id/textView2"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView" />
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_alignTop="@+id/LED_ON_OFF"
+        android:layout_toRightOf="@+id/imageView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,8 +84,5 @@
         android:layout_above="@+id/urlText"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo_small" />
-
-
-
 
 </RelativeLayout>

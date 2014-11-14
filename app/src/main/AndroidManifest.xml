@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.snoopwall.flashlight" >
+    package="com.snoopwall.flashlight">
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
     <application
@@ -27,15 +27,37 @@ limitations under the License.
         android:name = ".LightApp"
         >
 
+        <!--Main activity-->
         <activity
             android:name=".Light"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--Activity to toggle LED without GUI-->
+        <activity
+            android:name=".ToggleLightService"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <!--widget receiver-->
+        <receiver
+            android:icon="@drawable/normal_state"
+            android:label="Flashlight Widget"
+            android:name=".WidgetProvider"
+            >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info"/>
+        </receiver>
+
     </application>
 
 </manifest>

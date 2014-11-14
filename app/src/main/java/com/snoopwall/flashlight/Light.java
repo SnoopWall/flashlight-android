@@ -17,6 +17,7 @@ Copyright 2014 SnoopWall LLC
 
 package com.snoopwall.flashlight;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -34,13 +35,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
-
-
 public class Light extends Activity {
     public static final int KILL = 1;
     private RelativeLayout root;
-    private  Drawable defaultBak;
+    private Drawable defaultBak;
     private boolean ledToggle = false;
     private TextView ledView;
     private boolean backlightToggle = false;
@@ -49,6 +47,7 @@ public class Light extends Activity {
     private TextView text2;
     private LightApp app;
     public Handler finisher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -130,18 +129,26 @@ public class Light extends Activity {
             backSetter(ledView,getResources().getDrawable(R.drawable.circle_on));
 
             ledToggle = true;
-
         } else {
             ledToggle = false;
             backSetter(ledView,getResources().getDrawable(R.drawable.circle_off));
-
         }
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 
+    @Override
+    protected void onStop(){
+        super.onStop();
+        app.mHandler.sendEmptyMessage(LightApp.MAYBE_DONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 
-
-    private void toggleLED(){
+    public void toggleLED(){
         if(ledToggle) {
             ledToggle = false;
             backSetter(ledView,getResources().getDrawable(R.drawable.circle_off));
@@ -154,6 +161,8 @@ public class Light extends Activity {
             app.turnOnCam();
         }
     }
+
+    @SuppressLint("NewApi")
     private static void backSetter(View x,Drawable y){
         int sdk = android.os.Build.VERSION.SDK_INT;
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -162,6 +171,7 @@ public class Light extends Activity {
             x.setBackground(y);
         }
     }
+
     private void toggleBackLight(){
         if(backlightToggle) {
             backlightToggle = false;
@@ -175,14 +185,6 @@ public class Light extends Activity {
         }
     }
 
-    protected void onStop() {
-        super.onStop();
-        app.mHandler.sendEmptyMessage(LightApp.MAYBE_DONE);
-
-
-    }
-
-
     private void turnOnBacklight(){
         Window w = getWindow();
         WindowManager.LayoutParams lp = w.getAttributes();
@@ -195,9 +197,8 @@ public class Light extends Activity {
         text1.setTextColor(getResources().getColor(android.R.color.black));
         text2.setTextColor(getResources().getColor(android.R.color.black));
         app.backLightOn = true;
-
-
     }
+
     public void turnOffBackLight(){
         Window w = getWindow();
         WindowManager.LayoutParams lp = w.getAttributes();
