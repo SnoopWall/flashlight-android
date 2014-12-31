@@ -63,11 +63,7 @@ public class WidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context,AppWidgetManager appWidgetManager, int[] appWidgetIds){
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        final int N = appWidgetIds.length;
-
-        for (int i=0; i<N; i++){
-            int appWidgetId = appWidgetIds[i];
-
+        for (int appWidgetId : appWidgetIds) {
             Intent intent = new Intent(context, ToggleLightService.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 

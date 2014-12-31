@@ -31,7 +31,7 @@ public class ToggleLightService extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = (LightApp)getApplication();
-        ledToggle = app.getLEDState();
+        ledToggle = app.isLEDOn();
         delete = getIntent().getBooleanExtra(delete_flag, false);
         toggleLED();
         finish();

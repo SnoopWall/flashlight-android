@@ -15,8 +15,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval" >
-    <solid
-        android:color="#D3D3D3"/>
-    <stroke android:width="2dp" android:color="#000000" />
-</shape>
+
+<resources>
+
+    <color name="bgColor2">#5C6681</color>
+    <color name="bgColor1">#012941</color>
+
+    <color name="textOn">#00AEEF</color>
+    <color name="textOff">#000000</color>
+
+    <color name="snoopwallSchemeButton">#03466D</color>
+    <color name="snoopwallSchemeButtonPressed">#3B83AF</color>
+
+    <color name="snoopwallSchemeLightButton">#00AEEF</color>
+    <color name="snoopwallSchemeLightButtonPressed">#8CBCD9</color>
+
+    <color name="snoopwallSchemeText">#D3D3D3</color>
+    <color name="snoopwallSchemeTextPressed">#3F3F3F</color>
+
+</resources>

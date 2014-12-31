@@ -18,7 +18,26 @@ limitations under the License.
 <resources>
 
     <string name="app_name">PRIVACY FLASHLIGHT</string>
-<string name="header_text">
+    <string name="auto_off_text">LED AUTO-SHUTOFF</string>
+    <string name="auto_off_active">LED will shut off upon exiting Privacy Flashlight</string>
+    <string name="auto_off_not_active">LED will stay on even after navigating away from Privacy app</string>
+    <string name="auto_off">OFF</string>
+    <string name="auto_on">ON</string>
+    <string name="timer_text">DEFAULT SHUTOFF\nTIMER LENGTH</string>
+    <string name="timer_title">FLASHLIGHT WILL TURN OFF IN:</string>
+    <string name="timer_arrow_right">►</string>
+    <string name="timer_arrow_down">▼</string>
+    <string name="start_text">START</string>
+    <string name="stop_text">STOP</string>
+    <string name="reset_text">RESET</string>
+    <string name="hours">HOURS</string>
+    <string name="minutes">MINUTES</string>
+    <string name="seconds">SECONDS</string>
+    <string name="zero">00</string>
+    <string name="url">www.snoopwall.com</string>
+    <string name="save">SAVE SETTINGS</string>
+    <string name="old_api">ONLY AVAILABLE FOR API LEVEL HONEYCOMB AND ABOVE</string>
+    <string name="header_text">
   <![CDATA[
     <i><b>PRIVACY </b> FLASHLIGHT</i>
   ]]>

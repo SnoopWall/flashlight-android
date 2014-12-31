@@ -19,6 +19,8 @@ package com.snoopwall.flashlight;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.Build;
@@ -37,6 +39,7 @@ public class LightApp extends Application {
     private Camera cam = null;
     public Boolean backLightOn = false;
     public Boolean camOn = false;
+    private boolean autoOff = false;
 
     public final Handler mHandler = new Handler() {
 
@@ -64,6 +67,7 @@ public class LightApp extends Application {
 
     public void onCreate() {
         super.onCreate();
+        autoOff = isAutoOffEnabled();
     }
 
     private void iAmDone(){
@@ -73,6 +77,7 @@ public class LightApp extends Application {
             finisher = null;
         }
         turnOffCam();
+
         if(act != null){
             act.finisher.sendEmptyMessage(Light.KILL);
 
@@ -89,11 +94,14 @@ public class LightApp extends Application {
         TimerTask x = new TimerTask() {
             @Override
             public void run() {
-                iAmDone();
+                autoOff = isAutoOffEnabled();
+                if(autoOff) {
+                    iAmDone();
+                }
             }
         };
         finisher = new Timer();
-        finisher.schedule(x,2000);
+        finisher.schedule(x, 0);
     }
 
     @SuppressLint("NewApi")
@@ -133,8 +141,23 @@ public class LightApp extends Application {
         cam = null;
     }
 
-    public boolean getLEDState(){
-        if(camOn) {return true;}
-        else      {return false;}
+    public boolean isLEDOn(){
+        return camOn;
+    }
+
+    public boolean isAutoOffEnabled() {
+        String clientAppName = getResources().getString(R.string.app_name);
+        SharedPreferences preferences = getSharedPreferences(clientAppName, Context.MODE_PRIVATE);
+        return preferences.getBoolean("AUTO_OFF", false);
+    }
+
+    public long[] getTimerValues() {
+        long[] timerVals = new long[3];
+        String clientAppName = getResources().getString(R.string.app_name);
+        SharedPreferences preferences = getSharedPreferences(clientAppName, Context.MODE_PRIVATE);
+        timerVals[0] = preferences.getLong("HOURS", 0);
+        timerVals[1] = preferences.getLong("MINUTES", 0);
+        timerVals[2] = preferences.getLong("SECONDS", 5);
+        return timerVals;
     }
 }

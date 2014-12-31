@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+The Likeness, Logos and text of this app are provided as reference and may not be reproduced in a derivative work
+Copyright 2014 SnoopWall LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bak">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timer_title"
+            android:layout_marginTop="12dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/timer_text"
+            android:textSize="36sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <NumberPicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/hours"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/hours_text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/hours"
+                    android:textSize="22sp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <NumberPicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/minutes"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/minutes_text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/minutes"
+                    android:textSize="22sp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <NumberPicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/seconds"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/seconds_text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/seconds"
+                    android:textSize="22sp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginStart="12dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/auto_off_text"
+                android:textSize="24sp"
+                android:layout_gravity="top"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:text="@string/auto_off"
+                android:id="@+id/autoCheckBox"
+                android:layout_weight="1.5" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/autoOffInfo"
+            android:text="@string/auto_off_active"
+            android:textSize="16sp"
+            android:layout_gravity="top"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:text="@string/save"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/snoopwall_text"
+        android:background="@drawable/scheme_snoopwall_buttons"
+        android:id="@+id/saveBtn"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

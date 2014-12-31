@@ -20,13 +20,27 @@ limitations under the License.
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:gravity="center">
+    android:gravity="center_horizontal">
 
     <Button
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:id="@+id/WIDGET_ON_OFF"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/widget_icon"
         android:text=""
-        android:id="@+id/WIDGET_ON_OFF"
         android:focusableInTouchMode="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="2.0"
+        android:textSize="10sp"/>
+
 </LinearLayout>
