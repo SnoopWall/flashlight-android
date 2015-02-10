@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.NumberPicker;
@@ -33,23 +34,29 @@ public class Settings extends Activity {
 
     private NumberPicker hours, minutes, seconds;
     private TextView hoursText, minutesText, secondsText, timerTitle;
-    private CheckBox autoOnOffOption;
-    private TextView autoOffInfo;
-    private boolean autoOffSetting;
+    private CheckBox autoOnOffOption, autoLedOption, autoScreenOption;
+    private TextView autoOffInfo, autoLedInfo, autoScreenInfo;
+    private boolean autoOffSetting, autoLedSetting, autoScreenSetting;
+    private boolean savePressed, backPressed = false;
     final protected String autoOffString = "AUTO_OFF";
+    final protected String autoLedString = "AUTO_LED";
+    final protected String autoScreenString = "AUTO_SCREEN";
     final protected String hoursString = "HOURS";
     final protected String minutesString = "MINUTES";
     final protected String secondsString = "SECONDS";
+    private LightApp app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        LightApp app = (LightApp) getApplication();
+        app = (LightApp) getApplication();
 
         String clientAppName = getResources().getString(R.string.app_name);
         SharedPreferences preferences = getSharedPreferences(clientAppName, Context.MODE_PRIVATE);
         autoOffSetting = preferences.getBoolean(autoOffString, false);
+        autoLedSetting = preferences.getBoolean(autoLedString, false);
+        autoScreenSetting = preferences.getBoolean(autoScreenString, false);
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -63,8 +70,12 @@ public class Settings extends Activity {
         secondsText = (TextView)findViewById(R.id.seconds_text);
         timerTitle = (TextView)findViewById(R.id.timer_title);
         autoOnOffOption = (CheckBox)findViewById(R.id.autoCheckBox);
-        Button saveButton = (Button) findViewById(R.id.saveBtn);
+        autoLedOption = (CheckBox)findViewById(R.id.autoLEDCheckBox);
+        autoScreenOption = (CheckBox)findViewById(R.id.autoScreenCheckBox);
         autoOffInfo = (TextView)findViewById(R.id.autoOffInfo);
+        autoLedInfo = (TextView)findViewById(R.id.autoOnLEDInfo);
+        autoScreenInfo = (TextView)findViewById(R.id.autoOnScreenInfo);
+        Button saveButton = (Button) findViewById(R.id.saveBtn);
 
         if(Build.VERSION.SDK_INT >= 11) {
             int maxNumbers = 59;
@@ -74,6 +85,9 @@ public class Settings extends Activity {
             hours.setMinValue(0);
             minutes.setMinValue(0);
             seconds.setMinValue(0);
+            hours.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            minutes.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            seconds.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
             long[] timerVals = app.getTimerValues();
             hours.setValue((int) timerVals[0]);
@@ -91,26 +105,76 @@ public class Settings extends Activity {
         }
 
         if(autoOffSetting){
-            autoOnOffOption.setText(R.string.auto_on);
+            autoOnOffOption.setText(R.string.on);
             autoOnOffOption.setChecked(true);
             autoOffInfo.setText(R.string.auto_off_active);
         }else{
-            autoOnOffOption.setText(R.string.auto_off);
+            autoOnOffOption.setText(R.string.off);
             autoOnOffOption.setChecked(false);
             autoOffInfo.setText(R.string.auto_off_not_active);
+        }
+
+        if(autoLedSetting){
+            autoLedOption.setText(R.string.on);
+            autoLedOption.setChecked(true);
+            autoLedInfo.setText(R.string.auto_on_led_active);
+        }else{
+            autoLedOption.setText(R.string.off);
+            autoLedOption.setChecked(false);
+            autoLedInfo.setText(R.string.auto_on_led_not_active);
+        }
+
+        if(autoScreenSetting){
+            autoScreenOption.setText(R.string.on);
+            autoScreenOption.setChecked(true);
+            autoScreenInfo.setText(R.string.auto_on_screen_active);
+        }else{
+            autoScreenOption.setText(R.string.off);
+            autoScreenOption.setChecked(false);
+            autoScreenInfo.setText(R.string.auto_on_screen_not_active);
         }
 
         autoOnOffOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (autoOnOffOption.isChecked()) {
-                    autoOnOffOption.setText(R.string.auto_on);
+                    autoOnOffOption.setText(R.string.on);
                     autoOffInfo.setText(R.string.auto_off_active);
                     autoOffSetting = true;
                 } else {
-                    autoOnOffOption.setText(R.string.auto_off);
+                    autoOnOffOption.setText(R.string.off);
                     autoOffInfo.setText(R.string.auto_off_not_active);
                     autoOffSetting = false;
+                }
+            }
+        });
+
+        autoLedOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (autoLedOption.isChecked()) {
+                    autoLedOption.setText(R.string.on);
+                    autoLedInfo.setText(R.string.auto_on_led_active);
+                    autoLedSetting = true;
+                } else {
+                    autoLedOption.setText(R.string.off);
+                    autoLedInfo.setText(R.string.auto_on_led_not_active);
+                    autoLedSetting = false;
+                }
+            }
+        });
+
+        autoScreenOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (autoScreenOption.isChecked()) {
+                    autoScreenOption.setText(R.string.on);
+                    autoScreenInfo.setText(R.string.auto_on_screen_active);
+                    autoScreenSetting = true;
+                } else {
+                    autoScreenOption.setText(R.string.off);
+                    autoScreenInfo.setText(R.string.auto_on_screen_not_active);
+                    autoScreenSetting = false;
                 }
             }
         });
@@ -119,9 +183,12 @@ public class Settings extends Activity {
             @Override
             public void onClick(View v) {
                 setAutoOffState(autoOffSetting);
+                setAutoLedState(autoLedSetting);
+                setAutoScreenState(autoScreenSetting);
                 if(Build.VERSION.SDK_INT >= 11) {
                     setTimerValues(hours.getValue(), minutes.getValue(), seconds.getValue());
                 }
+                savePressed = true;
                 finish();
             }
         });
@@ -132,7 +199,22 @@ public class Settings extends Activity {
     protected void onStop(){
         super.onStop();
         setResult(RESULT_OK);
-        finish();
+        if(!savePressed && !backPressed) {
+            app.mHandler.sendEmptyMessage(LightApp.MAYBE_DONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            finish();
+        }else{
+            savePressed = false;
+            backPressed = false;
+            finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        backPressed = true;
+        return;
     }
 
     private void setAutoOffState(boolean b){
@@ -140,6 +222,22 @@ public class Settings extends Activity {
         SharedPreferences prefs = this.getSharedPreferences(appName, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(autoOffString, b);
+        editor.commit();
+    }
+
+    private void setAutoLedState(boolean b){
+        String appName = getResources().getString(R.string.app_name);
+        SharedPreferences prefs = this.getSharedPreferences(appName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(autoLedString, b);
+        editor.commit();
+    }
+
+    private void setAutoScreenState(boolean b){
+        String appName = getResources().getString(R.string.app_name);
+        SharedPreferences prefs = this.getSharedPreferences(appName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(autoScreenString, b);
         editor.commit();
     }
 

@@ -17,13 +17,28 @@ limitations under the License.
 -->
 <resources>
 
+    <!-- General Strings -->
     <string name="app_name">PRIVACY FLASHLIGHT</string>
+    <string name="url">www.snoopwall.com</string>
+    <string name="old_api">ONLY AVAILABLE FOR API LEVEL HONEYCOMB AND ABOVE</string>
+    <!-- settings strings -->
     <string name="auto_off_text">LED AUTO-SHUTOFF</string>
     <string name="auto_off_active">LED will shut off upon exiting Privacy Flashlight</string>
-    <string name="auto_off_not_active">LED will stay on even after navigating away from Privacy app</string>
-    <string name="auto_off">OFF</string>
-    <string name="auto_on">ON</string>
-    <string name="timer_text">DEFAULT SHUTOFF\nTIMER LENGTH</string>
+    <string name="auto_off_not_active">LED will stay on even after navigating away from Privacy Flashlight</string>
+
+    <string name="auto_on_led_text">LED FLASHLIGHT AUTO-ON</string>
+    <string name="auto_on_led_active">The LED flashlight will automatically turn on upon starting Privacy Flashlight</string>
+    <string name="auto_on_led_not_active">The LED flashlight will be off upon starting Privacy Flashlight (unless already turned on)</string>
+
+    <string name="auto_on_screen_text">SCREEN FLASHLIGHT AUTO_ON</string>
+    <string name="auto_on_screen_active">The Screen flashlight will automatically turn on upon starting Privacy Flashlight</string>
+    <string name="auto_on_screen_not_active">The Screen flashlight will be off upon starting Privacy Flashlight (unless already turned on)</string>
+
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+    <string name="save">SAVE SETTINGS</string>
+    <!-- timer strings -->
+    <string name="timer_text">DEFAULT SHUTOFF TIMER LENGTH</string>
     <string name="timer_title">FLASHLIGHT WILL TURN OFF IN:</string>
     <string name="timer_arrow_right">►</string>
     <string name="timer_arrow_down">▼</string>
@@ -34,9 +49,7 @@ limitations under the License.
     <string name="minutes">MINUTES</string>
     <string name="seconds">SECONDS</string>
     <string name="zero">00</string>
-    <string name="url">www.snoopwall.com</string>
-    <string name="save">SAVE SETTINGS</string>
-    <string name="old_api">ONLY AVAILABLE FOR API LEVEL HONEYCOMB AND ABOVE</string>
+
     <string name="header_text">
   <![CDATA[
     <i><b>PRIVACY </b> FLASHLIGHT</i>

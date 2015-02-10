@@ -45,6 +45,8 @@ public class Light extends Activity {
     private LinearLayout root;
     private Drawable defaultBak;
     private boolean ledToggle = false;
+    private boolean autoLED = false;
+    private boolean autoScreen = false;
     private TextView ledView;
     private Button stopStartButton;
     private Button resetButton;
@@ -78,6 +80,8 @@ public class Light extends Activity {
 
         ledToggle = app.isLEDOn();
         backlightToggle = app.backLightOn;
+        autoLED = app.isAutoLEDEnabled();
+        autoScreen = app.isAutoScreenEnabled();
         
         ledView = (TextView)findViewById(R.id.LED_ON_OFF);
         ledView.setOnClickListener(new View.OnClickListener() {
@@ -213,7 +217,7 @@ public class Light extends Activity {
         m.obj = this;
         app.mHandler.sendMessage(m);
         m = null;
-        if(app.backLightOn) {
+        if(app.backLightOn || autoScreen) {
             backSetter(backlightView, getResources().getDrawable(R.drawable.circle_on));
             backlightView.setTextColor(getResources().getColor(R.color.textOn));
             turnOnBacklight();
@@ -225,6 +229,10 @@ public class Light extends Activity {
         if(app.isLEDOn()){
             backSetter(ledView,getResources().getDrawable(R.drawable.circle_on));
             ledView.setTextColor(getResources().getColor(R.color.textOn));
+        }else if(autoLED){
+            backSetter(ledView,getResources().getDrawable(R.drawable.circle_on));
+            ledView.setTextColor(getResources().getColor(R.color.textOn));
+            app.turnOnCam();
         } else {
             backSetter(ledView,getResources().getDrawable(R.drawable.circle_off));
             ledView.setTextColor(getResources().getColor(R.color.textOff));

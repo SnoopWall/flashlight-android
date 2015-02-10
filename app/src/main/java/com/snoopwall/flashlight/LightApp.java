@@ -151,6 +151,18 @@ public class LightApp extends Application {
         return preferences.getBoolean("AUTO_OFF", false);
     }
 
+    public boolean isAutoLEDEnabled() {
+        String clientAppName = getResources().getString(R.string.app_name);
+        SharedPreferences preferences = getSharedPreferences(clientAppName, Context.MODE_PRIVATE);
+        return preferences.getBoolean("AUTO_LED", false);
+    }
+
+    public boolean isAutoScreenEnabled() {
+        String clientAppName = getResources().getString(R.string.app_name);
+        SharedPreferences preferences = getSharedPreferences(clientAppName, Context.MODE_PRIVATE);
+        return preferences.getBoolean("AUTO_SCREEN", false);
+    }
+
     public long[] getTimerValues() {
         long[] timerVals = new long[3];
         String clientAppName = getResources().getString(R.string.app_name);
