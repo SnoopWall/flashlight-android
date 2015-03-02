@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 The Likeness, Logos and text of this app are provided as reference and may not be reproduced in a derivative work
-Copyright 2014 SnoopWall, Inc.
+Copyright 2014 SnoopWall LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,12 +24,12 @@ limitations under the License.
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo"
-        android:name = "com.snoopwall.ultrabrightestflashlight.LightApp"
+        android:name = ".LightApp"
         >
 
         <!--Main activity-->
         <activity
-            android:name="com.snoopwall.ultrabrightestflashlight.Light"
+            android:name=".Light"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -41,19 +41,19 @@ limitations under the License.
 
         <!--Activity to toggle LED without GUI-->
         <activity
-            android:name="com.snoopwall.ultrabrightestflashlight.ToggleLightService"
+            android:name=".ToggleLightService"
             android:theme="@android:style/Theme.NoDisplay" />
 
         <!--Settings Activity-->
         <activity
-            android:name="com.snoopwall.ultrabrightestflashlight.Settings"
+            android:name=".Settings"
             android:screenOrientation="portrait"/>
 
         <!--widget receiver-->
         <receiver
             android:icon="@drawable/normal_state"
             android:label="Flashlight Widget"
-            android:name="com.snoopwall.ultrabrightestflashlight.WidgetProvider"
+            android:name=".WidgetProvider"
             >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
